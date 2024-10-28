@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bé tập tính</title>
+    <link rel ="stylesheet" href="./src/output.css">
+</head>
+<body class="bg-gray-200 flex justify-center items-center h-screen">
+
+    <div class="bg-white p-8 w-1/2 ">
+        <h1 class="text-2xl font-bold mb-6">Bé tập tính</h1>
+
+        <div class="grid grid-cols-12 gap-4 items-center">
+        
+            <div class="col-span-4 space-y-4">
+                <div>Số thứ nhất</div>
+                <div>Số thứ hai</div>
+                <div>kết quả</div>
+            </div>
+
+        
+            <div class="col-span-4">
+                <input id="firstNumber" type="text" class="border p-2" />
+                <input id="secondNumber" type="text" class="border p-2" />
+                <input id="result" type="text" class="border p-2" readonly />
+            </div>
+
+            <div class="col-span-4">
+                <div class="flex justify-between">
+                    <label><input type="radio" name="operation" id="add"checked /> cộng</label>
+                    <label><input type="radio" name="operation" id="subtract" /> trừ</label>
+                </div>
+
+                <div class="flex justify-between">
+                    <label> <input type="radio" name="operation" id="multiply" /> nhân</label>
+                    <label> <input type="radio" name="operation" id="divide" /> chia</label>
+                </div>
+                    
+                <button onclick="calculate()" class="bg-blue-500 text-white px-2 py-2 w-full">Tính</button>
+            </div>
+            <div class="col-span-4">
+                Thông báo
+            </div>
+            <div id="message" class="col-span-8 text-red-500"></div>
+        </div>
+
+        
+    </div>
+
+    <script>
+        function calculate() {
+            const firstNumber = document.getElementById("firstNumber").value;
+            const secondNumber = document.getElementById("secondNumber").value;
+            const messageError = document.getElementById("message");
+
+            messageError.innerText = "";
+
+            num1 = parseFloat(firstNumber);
+            num2 = parseFloat(secondNumber);
+
+            
+            if (isNaN(num1)) {
+                messageError.innerText = "Giá trị nhập ở ô Số thứ nhất không phải là số!";
+                return;
+            }
+            if (isNaN(num2)) {
+                messageError.innerText = "Giá trị nhập ở ô Số thứ hai không phải là số!";
+                return;
+            }
+
+            const operation = document.querySelector('input[name="operation"]:checked').id;
+
+            switch (operation) {
+                case "add":
+                    document.getElementById("result").value = num1 + num2;
+                    break;
+                case "subtract":
+                    document.getElementById("result").value = num1 - num2;
+                    break;
+                case "multiply":
+                    document.getElementById("result").value = num1 * num2;
+                    break;
+                case "divide":
+                    if (num2 === 0) {
+                        messageError.innerText = "Không thể chia cho 0!";
+                        return;
+                    }
+                    document.getElementById("result").value = num1 / num2;
+                    break;
+            }
+            messageError.innerText = "Tính toán xong!"
+    }
+    </script>
+</body>
+</html>
