@@ -28,7 +28,7 @@
 
             <div class="col-span-4">
                 <div class="flex justify-between">
-                    <label><input type="radio" name="operation" id="add"checked /> cộng</label>
+                    <label><input type="radio" name="operation" id="add"/> cộng</label>
                     <label><input type="radio" name="operation" id="subtract" /> trừ</label>
                 </div>
 
@@ -69,9 +69,13 @@
                 return;
             }
 
-            const operation = document.querySelector('input[name="operation"]:checked').id;
+            const operation = document.querySelector('input[name="operation"]:checked');
 
-            switch (operation) {
+            if (!operation) {
+                messageError.innerText = "Vui lòng chọn một phép toán!";
+                return;
+            }
+            switch (operation.id) {
                 case "add":
                     document.getElementById("result").value = num1 + num2;
                     break;
